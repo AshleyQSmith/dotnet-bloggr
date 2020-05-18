@@ -32,5 +32,15 @@ namespace dotnet_bloggr.Services
       }
       return foundBlog;
     }
+
+    internal Blog Delete(int id)
+    {
+      Blog foundBlog = GetById(id);
+      if (_repo.Delete(id))
+      {
+        return foundBlog;
+      }
+      throw new Exception("something failed");
+    }
   }
 }

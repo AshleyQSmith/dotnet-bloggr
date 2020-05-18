@@ -60,5 +60,19 @@ namespace dotnet_bloggr.Controllers
         return BadRequest(err.Message);
       }
     }
+
+    [HttpDelete("{id")]
+    public ActionResult<Blog> Delete(int id)
+    {
+      try
+      {
+        return Ok(_bs.Delete(id));
+      }
+      catch (System.Exception err)
+      {
+        return BadRequest(err.Message);
+      }
+    }
+
   }
 }

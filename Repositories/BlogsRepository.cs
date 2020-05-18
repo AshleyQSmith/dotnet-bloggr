@@ -37,5 +37,12 @@ namespace dotnet_bloggr.Repositories
       string sql = "SELECT * FROM blogs WHERE id = @Id";
       return _db.QueryFirstOrDefault<Blog>(sql, new { id });
     }
+
+    internal bool Delete(int id)
+    {
+      string sql = "DELETE FROM blogs WHERE id = @Id LIMIT 1";
+      int affectedRows = _db.Execute(sql, new { id });
+      return affectedRows == 1;
+    }
   }
 }
