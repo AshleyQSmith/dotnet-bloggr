@@ -34,6 +34,20 @@ namespace dotnet_bloggr.Controllers
       }
     }
 
+    [HttpGet("{id}")]
+    public ActionResult<Blog> GetById(int id)
+    {
+      try
+      {
+        return Ok(_bs.GetById(id));
+      }
+      catch (System.Exception err)
+      {
+        return BadRequest(err.Message);
+      }
+    }
+
+
     [HttpPost]
     public ActionResult<Blog> Create([FromBody] Blog newBlog)
     {

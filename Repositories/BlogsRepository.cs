@@ -31,5 +31,11 @@ namespace dotnet_bloggr.Repositories
       newBlog.Id = _db.ExecuteScalar<int>(sql, newBlog);
       return newBlog;
     }
+
+    internal Blog GetById(int id)
+    {
+      string sql = "SELECT * FROM blogs WHERE id = @Id";
+      return _db.QueryFirstOrDefault<Blog>(sql, new { id });
+    }
   }
 }

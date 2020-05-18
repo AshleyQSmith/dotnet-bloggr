@@ -22,5 +22,15 @@ namespace dotnet_bloggr.Services
     {
       return _repo.Create(newBlog);
     }
+
+    internal Blog GetById(int id)
+    {
+      Blog foundBlog = _repo.GetById(id);
+      if (foundBlog == null)
+      {
+        throw new Exception("Infalid id.");
+      }
+      return foundBlog;
+    }
   }
 }
