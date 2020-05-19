@@ -16,3 +16,26 @@
 
 -- get all example
 -- SELECT * FROM blogs;
+
+-- CREATE TABLE tags(
+--   id INT NOT NULL AUTO_INCREMENT,
+--   title VARCHAR(20) NOT NULL,
+--   PRIMARY KEY (id)
+-- )
+
+
+-- CREATE TABLE tagblogs(
+--   id INT NOT NULL AUTO_INCREMENT,
+--   blogId INT NOT NULL,
+--   tagId INT NOT NULL,
+--   PRIMARY KEY (id),
+--   INDEX (blogId),
+
+--   FOREIGN KEY(blogId)
+--     REFERENCES blogs(id)
+--     ON DELETE CASCADE,
+
+--     FOREIGN KEY (tagId)
+--       REFERENCES tags(id)
+--       ON DELETE CASCADE
+-- )

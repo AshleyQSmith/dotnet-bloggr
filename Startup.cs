@@ -35,6 +35,10 @@ namespace dotnet_bloggr
       // dependency injection
       services.AddTransient<BlogsService>();
       services.AddTransient<BlogsRepository>();
+      services.AddTransient<TagsService>();
+      services.AddTransient<TagsRepository>();
+      services.AddTransient<TagBlogsService>();
+      services.AddTransient<TagBlogsRepository>();
     }
 
     private IDbConnection CreateDbConnection()

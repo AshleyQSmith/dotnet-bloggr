@@ -28,9 +28,13 @@ namespace dotnet_bloggr.Services
       Blog foundBlog = _repo.GetById(id);
       if (foundBlog == null)
       {
-        throw new Exception("Infalid id.");
+        throw new Exception("Invalid id.");
       }
       return foundBlog;
+    }
+    internal IEnumerable<Blog> GetBlogsByTagId(int id)
+    {
+      return _repo.GetBlogsByTagId(id);
     }
 
     internal Blog Delete(int id)
@@ -41,6 +45,12 @@ namespace dotnet_bloggr.Services
         return foundBlog;
       }
       throw new Exception("something failed");
+    }
+
+
+    internal IEnumerable<Blog> GetBlogsByUserEmail(string creatorEmail)
+    {
+      return _repo.GetBlogsByUserEmail(creatorEmail);
     }
 
     internal Blog Edit(int id, Blog updatedBlog)

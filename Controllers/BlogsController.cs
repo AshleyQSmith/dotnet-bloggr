@@ -34,6 +34,20 @@ namespace dotnet_bloggr.Controllers
       }
     }
 
+    [HttpGet("/user")]
+    public ActionResult<IEnumerable<Blog>> GetBlogsByUserEmail()
+    {
+      try
+      {
+        string creatorEmail = "ashley@email.com";
+        return Ok(_bs.GetBlogsByUserEmail(creatorEmail));
+      }
+      catch (System.Exception err)
+      {
+        return BadRequest(err.Message);
+      }
+    }
+
     [HttpGet("{id}")]
     public ActionResult<Blog> GetById(int id)
     {
@@ -53,6 +67,8 @@ namespace dotnet_bloggr.Controllers
     {
       try
       {
+        // hard code email for now because there is no auth0, otherwise there'd be models for user profiles
+        newBlog.CreatorEmail = "ashley@email.com";
         return Ok(_bs.Create(newBlog));
       }
       catch (System.Exception err)
@@ -61,7 +77,7 @@ namespace dotnet_bloggr.Controllers
       }
     }
 
-    [HttpDelete("{id")]
+    [HttpDelete("{id}")]
     public ActionResult<Blog> Delete(int id)
     {
       try

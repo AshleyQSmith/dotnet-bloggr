@@ -16,22 +16,41 @@ namespace dotnet_bloggr.Repositories
     }
     internal IEnumerable<Blog> GetAll()
     {
-      string sql = "SELECT * FROM blogs";
+      // true = 1, false = 0
+      string sql = "SELECT * FROM blogs WHERE isPublished = 1";
       return _db.Query<Blog>(sql);
+    }
+    internal IEnumerable<Blog> GetBlogsByUserEmail(string creatorEmail)
+    {
+      string sql = "SELECT * FROM blogs WHERE creatorEmail = @creatorEmail";
+      return _db.Query<Blog>(sql, new { creatorEmail });
+    }
+
+
+    internal IEnumerable<TagBlogViewModel> GetBlogsByTagId(int TagId)
+    {
+      string sql = @"
+      SELECT
+      b.*,
+      tb.id AS TagBlogId
+      FROM tagblogs tb
+      INNER JOIN blogs b ON b.id = tb.blogId
+      WHERE tagId = @TagId AND isPublished = 1
+      ";
+      return _db.Query<TagBlogViewModel>(sql, new { TagId });
     }
 
     internal object Create(Blog newBlog)
     {
       string sql = @"
       INSERT INTO blogs
-      (title, body, isPublished)
+      (title, body, isPublished, creatorEmail)
       VALUES
-      (@Title, @Body, @IsPublished);
+      (@Title, @Body, @IsPublished, @CreatorEmail);
       SELECT LAST_INSERT_ID()";
       newBlog.Id = _db.ExecuteScalar<int>(sql, newBlog);
       return newBlog;
     }
-
     internal Blog GetById(int id)
     {
       string sql = "SELECT * FROM blogs WHERE id = @Id";
@@ -44,6 +63,7 @@ namespace dotnet_bloggr.Repositories
       int affectedRows = _db.Execute(sql, new { id });
       return affectedRows == 1;
     }
+
 
     internal Blog Edit(Blog blogToUpdate)
     {
