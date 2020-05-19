@@ -74,5 +74,18 @@ namespace dotnet_bloggr.Controllers
       }
     }
 
+    [HttpPut("{id}")]
+    public ActionResult<Blog> Edit(int id, [FromBody] Blog updatedBlog)
+    {
+      try
+      {
+        return Ok(_bs.Edit(id, updatedBlog));
+      }
+      catch (System.Exception err)
+      {
+        return BadRequest(err.Message);
+      }
+    }
+
   }
 }

@@ -31,6 +31,8 @@ namespace dotnet_bloggr
     {
       services.AddControllers();
       services.AddScoped<IDbConnection>(x => CreateDbConnection());
+      // adding a transiet allows application to instantiate 
+      // dependency injection
       services.AddTransient<BlogsService>();
       services.AddTransient<BlogsRepository>();
     }

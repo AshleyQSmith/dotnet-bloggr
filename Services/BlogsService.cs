@@ -42,5 +42,17 @@ namespace dotnet_bloggr.Services
       }
       throw new Exception("something failed");
     }
+
+    internal Blog Edit(int id, Blog updatedBlog)
+    {
+      Blog foundBlog = GetById(id);
+      // GetById is already handling our null checking for id's
+      foundBlog.IsPublished = updatedBlog.IsPublished;
+      foundBlog.Body = updatedBlog.Body;
+      foundBlog.Title = updatedBlog.Title;
+      // send on foundBlog instead of updatedBlog to limit what can be changed as well as know what key/value to edit
+      return _repo.Edit(foundBlog);
+
+    }
   }
 }

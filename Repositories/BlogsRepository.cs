@@ -44,5 +44,19 @@ namespace dotnet_bloggr.Repositories
       int affectedRows = _db.Execute(sql, new { id });
       return affectedRows == 1;
     }
+
+    internal Blog Edit(Blog blogToUpdate)
+    {
+      string sql = @"
+      UPDATE blogs
+      SET 
+        title = @Title,
+        body = @Body,
+        isPublished = @IsPublished
+      WHERE id = @Id
+      LIMIT 1";
+      _db.Execute(sql, blogToUpdate);
+      return blogToUpdate;
+    }
   }
 }
